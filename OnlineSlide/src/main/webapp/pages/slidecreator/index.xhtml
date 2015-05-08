@@ -1,0 +1,124 @@
+<html xmlns="http://www.w3.org/1999/xhtml"  
+     xmlns:h="http://java.sun.com/jsf/html"      
+      xmlns:f="http://java.sun.com/jsf/core"
+     xmlns:p="http://primefaces.org/ui">  
+ <h:head><title>Welcome to OTV_JSF_Spring_Hibernate_Project</title>
+ <style type="text/css">
+.ui-widget,
+        .ui-widget .ui-widget {
+               font-size: 12px !important;
+              
+         }
+
+</style>
+ </h:head>  
+ <h:body>
+     <h:form id="form">      
+	   
+<p:layout fullPage="true">  
+  
+    <p:layoutUnit position="north" size="100" header="Top" resizable="true" closable="true" collapsible="true">  
+
+    </p:layoutUnit>  
+  
+    <p:layoutUnit position="south" size="100" header="Bottom" resizable="true" closable="true" collapsible="true">  
+        <h:outputText value="South unit content." />  
+    </p:layoutUnit>  
+  
+    <p:layoutUnit position="west" size="370" header="Left" resizable="true" closable="true" collapsible="true">  
+       
+        <h:panelGrid columns="5">
+        	<p:commandButton action="#{htmlFileMB.getValues}" update="basicCarousel,editor" value="Get DAta"></p:commandButton>   
+        	<p:commandButton value="Reset" action="#{htmlFileMB.resetFile}" update="basicCarousel,editor"></p:commandButton>
+        	<p:commandButton value="PPT Yükle" action="#{htmlFileMB.parsePPT}" update="basicCarousel,editor"></p:commandButton>
+        	<h:outputText></h:outputText>
+        	<h:outputText></h:outputText>
+        	
+        	<h:outputText value="Projeler: " />   
+        	<p:selectOneMenu value="#{htmlFileMB.selectedProject}">  
+            	<f:selectItems value="#{htmlFileMB.projectNames}"></f:selectItems>
+            </p:selectOneMenu>
+                       
+            <p:commandButton value="Yeni Proje" action="#{htmlFileMB.createNewProject}" onclick="PF('basicDialog').show();" update="basicCarousel,editor"></p:commandButton>  
+		</h:panelGrid> 
+		 
+	  
+	 
+	    <p:carousel id="basicCarousel"  value="#{htmlFileMB.elementList}" var="car" rows="15" style="width : 400px"
+		dropdownTemplate="true" vertical="true"  >   
+		    <f:facet name="header">  
+		            Slides  
+		    </f:facet>  
+		     
+		     <p:column>
+		     
+		     <p:panel id="slide2"  header="#{car.id}">  
+	       		<p:outputPanel deferred="true">  
+			      <h:outputText escape="false" value="#{car.htmlCode}"></h:outputText>
+				</p:outputPanel>  
+				
+				
+				
+						
+				<f:facet name="footer"> 
+					 <p:commandButton value="Güncelle" action="#{htmlFileMB.selectSlide}" update=":form:editor,:form:panel">
+					 	<f:setPropertyActionListener target="#{htmlFileMB.selectedElement}" value="#{car}"></f:setPropertyActionListener>
+					 </p:commandButton>
+					 <p:commandButton value="Sil" action="#{htmlFileMB.deleteSlide}" ajax="false" update=":form:editor,:form:basicCarousel">
+					 	<f:setPropertyActionListener target="#{htmlFileMB.selectedElement}" value="#{car}"></f:setPropertyActionListener>
+					 </p:commandButton>
+					 
+					 <h:outputLink   target="_blank" value="#{htmlFileMB.CONTENT_URL}/Demo/impress.html?#{htmlFileMB.randomData}#/#{car.id}">test</h:outputLink>
+				</f:facet>	
+	        </p:panel>   
+	       					 
+ </p:column>
+		</p:carousel>   
+
+    </p:layoutUnit>  
+  
+    <p:layoutUnit position="east" size="200" header="Right" resizable="true" closable="true" collapsible="true" effect="drop">  
+        <h:outputText value="Right unit content." /> 
+             	 <p:growl id="growl" showDetail="true" sticky="false" autoUpdate="true" showSummary="true" />  
+     	 <p:messages id="messages" showDetail="true"  />   
+    </p:layoutUnit>  
+  
+    <p:layoutUnit position="center">  
+      
+      <h:panelGrid id="panel" columns="6">
+        	
+        	<h:outputText value="X"></h:outputText>
+        	<p:inputText value="#{htmlFileMB.x}"></p:inputText>
+        	
+        	<h:outputText value="Y"></h:outputText>
+        	<p:inputText value="#{htmlFileMB.y}"></p:inputText>
+        	
+        	<h:outputText value="Z"></h:outputText>
+        	<p:inputText value="#{htmlFileMB.z}"></p:inputText>
+        	
+        	<h:outputText value="Rotate"></h:outputText>
+        	<p:inputText value="#{htmlFileMB.rotate}"></p:inputText>
+        	
+        	<h:outputText value="Scale"></h:outputText>
+        	<p:inputText value="#{htmlFileMB.scale}"></p:inputText>
+        	
+		</h:panelGrid> 
+      
+      
+      
+            <p:editor id="editor" value="#{htmlFileMB.editor}" width="1000"></p:editor>
+            <p:commandButton value="yeni Slayt" action="#{htmlFileMB.newSlide}" update="editor,basicCarousel"></p:commandButton>
+            <p:commandButton value="Kaydet" action="#{htmlFileMB.save}" update="basicCarousel,editor,test"></p:commandButton>
+
+<!--       		<h:outputLink value="http://localhost:8080/OTV_JSF_Spring_Hibernate_Project/Demo/neo4jVisulation.html">Test</h:outputLink> -->
+      		<h:outputLink id="test" value="#{htmlFileMB.CONTENT_URL}/Demo/impress.html?#{htmlFileMB.randomData}" target="_blank">Tüm Slatylar Test</h:outputLink>
+    </p:layoutUnit>  
+  
+</p:layout>  
+                     
+                     <p:dialog id="basicDialog" header="Basic Dialog" widgetVar="dlg1">  
+    <h:outputText value="Resistance to PrimeFaces is futile!" />  
+</p:dialog>       
+     </h:form>      
+</h:body>
+</html> 

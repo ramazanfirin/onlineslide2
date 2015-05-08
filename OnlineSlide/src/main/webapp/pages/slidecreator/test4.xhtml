@@ -1,0 +1,68 @@
+<html xmlns="http://www.w3.org/1999/xhtml"  
+     xmlns:h="http://java.sun.com/jsf/html"      
+      xmlns:f="http://java.sun.com/jsf/core"
+     xmlns:p="http://primefaces.org/ui">  
+ <h:head><title>Welcome to OTV_JSF_Spring_Hibernate_Project</title></h:head>  
+ <h:body>
+     <h:form>      
+	    
+<p:layout fullPage="true">  
+  
+    <p:layoutUnit position="north" size="100" header="Top" resizable="true" closable="true" collapsible="true">  
+     
+    </p:layoutUnit>  
+  
+    <p:layoutUnit position="south" size="100" header="Bottom" resizable="true" closable="true" collapsible="true">  
+        <h:outputText value="South unit content." />  
+    </p:layoutUnit>  
+  
+    <p:layoutUnit position="west" size="200" header="Left" resizable="true" closable="true" collapsible="true">  
+        <p:commandButton action="#{htmlFileMB.getValues}" update="cars,editor">get</p:commandButton>   
+          <p:commandButton value="Güncelle" action="#{htmlFileMB.selectSlide}" >
+ 					 	<f:setPropertyActionListener target="#{htmlFileMB.selectedId}" value="0"></f:setPropertyActionListener>
+					 </p:commandButton>
+	
+		
+		<p:dataTable id="cars" var="car" value="#{htmlFileMB.elementList}">  
+		 <p:column headerText="Model" style="width:24%">  
+            <p:panel id="aaa" header="#{car.id}">
+		     	<p:outputPanel deferred="true">  
+			 	     <h:outputText escape="false" value="#{car.htmlCode}"></h:outputText>
+
+				</p:outputPanel>  
+		
+			
+			</p:panel> 
+        </p:column>  
+        
+        <p:column style="width:4%">  
+                 
+                  <p:commandButton value="Güncelle" action="#{htmlFileMB.selectSlide}" >
+ 					 	<f:setPropertyActionListener target="#{htmlFileMB.selectedElement}" value="#{car}"></f:setPropertyActionListener>
+				</p:commandButton> 
+        </p:column>  
+		
+		
+		</p:dataTable>
+
+
+    </p:layoutUnit>  
+  
+    <p:layoutUnit position="east" size="200" header="Right" resizable="true" closable="true" collapsible="true" effect="drop">  
+        <h:outputText value="Right unit content." />  
+    </p:layoutUnit>  
+  
+    <p:layoutUnit position="center">  
+      
+            <p:editor id="editor" value="#{htmlFileMB.editor}"></p:editor>
+            <p:commandButton value="yeni Slaty" ></p:commandButton>
+            <p:commandButton value="Kaydet" ></p:commandButton>
+  
+      
+    </p:layoutUnit>  
+  
+</p:layout>  
+                          
+     </h:form>      
+</h:body>
+</html> 
